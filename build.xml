@@ -1,0 +1,48 @@
+<project name="AntTest" default="antTest" basedir=".">
+
+ <target name="clean">
+  <delete dir="build"/>
+ </target>
+
+ <target name="compile">
+  <mkdir dir="build" />
+  <javac srcdir="src" destdir="build" includeantruntime="true">
+   <classpath>
+    <path refid="classpath.log4j.2.9" />
+   </classpath>
+  </javac>
+ </target>
+
+ <path id="classpath.log4j.2.9">
+   <fileset dir="jars">
+    <include name="log4j-api-2.9.0.jar"/>
+    <include name="log4j-core-2.9.0.jar"/>
+   </fileset>
+ </path>
+ <path id="classpath.log4j.2.8">
+   <fileset dir="jars">
+    <include name="log4j-api-2.8.2.jar"/>
+    <include name="log4j-core-2.8.2.jar"/>
+   </fileset>
+ </path>
+
+ <target name="antTest" depends="compile" description="run antTest">
+  <taskdef name="AntTest8" classname="AntTest">
+   <classpath>
+    <pathelement location="build" />
+    <pathelement location="conf" />
+    <path refid="classpath.log4j.2.8" />
+   </classpath>
+  </taskdef>
+ 
+  <taskdef name="AntTest9" classname="AntTest">
+   <classpath>
+    <pathelement location="build" />
+    <pathelement location="conf" />
+    <path refid="classpath.log4j.2.9" />
+   </classpath>
+  </taskdef>
+  <AntTest8/>
+  <AntTest9/>
+ </target>
+</project>
